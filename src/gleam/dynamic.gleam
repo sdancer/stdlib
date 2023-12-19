@@ -6,6 +6,8 @@ import gleam/result
 import gleam/string_builder
 @target(erlang)
 import gleam/bit_array
+@target(elixir)
+import gleam/bit_array
 
 /// `Dynamic` data is data that we don't know the type of yet.
 /// We likely get data like this from interop with Erlang, or from
@@ -32,6 +34,7 @@ pub fn from(a) -> Dynamic {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
+@external(elixir, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_from(a: anything) -> Dynamic
 
@@ -47,6 +50,7 @@ pub fn unsafe_coerce(a: Dynamic) -> anything {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
+@external(elixir, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_unsafe_coerce(a: Dynamic) -> a
 
@@ -85,6 +89,7 @@ pub fn bit_string(from data: Dynamic) -> Result(BitArray, DecodeErrors) {
 }
 
 @external(erlang, "gleam_stdlib", "decode_bit_array")
+@external(elixir, "gleam_stdlib", "decode_bit_array")
 @external(javascript, "../gleam_stdlib.mjs", "decode_bit_array")
 fn decode_bit_array(a: Dynamic) -> Result(BitArray, DecodeErrors)
 
@@ -127,7 +132,25 @@ fn decode_string(data: Dynamic) -> Result(String, DecodeErrors) {
   })
 }
 
+@target(elixir)
+fn decode_string(data: Dynamic) -> Result(String, DecodeErrors) {
+  bit_array(data)
+  |> map_errors(put_expected(_, "String"))
+  |> result.try(fn(raw) {
+    case bit_array.to_string(raw) {
+      Ok(string) -> Ok(string)
+      Error(Nil) ->
+        Error([DecodeError(expected: "String", found: "BitArray", path: [])])
+    }
+  })
+}
+
 @target(erlang)
+fn put_expected(error: DecodeError, expected: String) -> DecodeError {
+  DecodeError(..error, expected: expected)
+}
+
+@target(elixir)
 fn put_expected(error: DecodeError, expected: String) -> DecodeError {
   DecodeError(..error, expected: expected)
 }
@@ -148,6 +171,7 @@ pub fn classify(data: Dynamic) -> String {
 }
 
 @external(erlang, "gleam_stdlib", "classify_dynamic")
+@external(elixir, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "classify_dynamic")
 fn do_classify(a: Dynamic) -> String
 
@@ -171,6 +195,7 @@ pub fn int(from data: Dynamic) -> Result(Int, DecodeErrors) {
 }
 
 @external(erlang, "gleam_stdlib", "decode_int")
+@external(elixir, "gleam_stdlib", "decode_int")
 @external(javascript, "../gleam_stdlib.mjs", "decode_int")
 fn decode_int(a: Dynamic) -> Result(Int, DecodeErrors)
 
@@ -194,6 +219,7 @@ pub fn float(from data: Dynamic) -> Result(Float, DecodeErrors) {
 }
 
 @external(erlang, "gleam_stdlib", "decode_float")
+@external(elixir, "gleam_stdlib", "decode_float")
 @external(javascript, "../gleam_stdlib.mjs", "decode_float")
 fn decode_float(a: Dynamic) -> Result(Float, DecodeErrors)
 
@@ -217,6 +243,7 @@ pub fn bool(from data: Dynamic) -> Result(Bool, DecodeErrors) {
 }
 
 @external(erlang, "gleam_stdlib", "decode_bool")
+@external(elixir, "gleam_stdlib", "decode_bool")
 @external(javascript, "../gleam_stdlib.mjs", "decode_bool")
 fn decode_bool(a: Dynamic) -> Result(Bool, DecodeErrors)
 
@@ -243,10 +270,12 @@ pub fn shallow_list(from value: Dynamic) -> Result(List(Dynamic), DecodeErrors) 
 }
 
 @external(erlang, "gleam_stdlib", "decode_list")
+@external(elixir, "gleam_stdlib", "decode_list")
 @external(javascript, "../gleam_stdlib.mjs", "decode_list")
 fn decode_list(a: Dynamic) -> Result(List(Dynamic), DecodeErrors)
 
 @external(erlang, "gleam_stdlib", "decode_result")
+@external(elixir, "gleam_stdlib", "decode_result")
 @external(javascript, "../gleam_stdlib.mjs", "decode_result")
 fn decode_result(a: Dynamic) -> Result(Result(a, e), DecodeErrors)
 
@@ -389,6 +418,7 @@ pub fn optional(of decode: Decoder(inner)) -> Decoder(Option(inner)) {
 }
 
 @external(erlang, "gleam_stdlib", "decode_option")
+@external(elixir, "gleam_stdlib", "decode_option")
 @external(javascript, "../gleam_stdlib.mjs", "decode_option")
 fn decode_optional(a: Dynamic, b: Decoder(a)) -> Result(Option(a), DecodeErrors)
 
@@ -473,6 +503,7 @@ pub fn optional_field(
 }
 
 @external(erlang, "gleam_stdlib", "decode_field")
+@external(elixir, "gleam_stdlib", "decode_field")
 @external(javascript, "../gleam_stdlib.mjs", "decode_field")
 fn decode_field(a: Dynamic, b: name) -> Result(Option(Dynamic), DecodeErrors)
 
@@ -540,32 +571,38 @@ fn at_least_decode_tuple_error(
 type UnknownTuple
 
 @external(erlang, "gleam_stdlib", "decode_tuple")
+@external(elixir, "gleam_stdlib", "decode_tuple")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple")
 fn decode_tuple(a: Dynamic) -> Result(UnknownTuple, DecodeErrors)
 
 @external(erlang, "gleam_stdlib", "decode_tuple2")
+@external(elixir, "gleam_stdlib", "decode_tuple2")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple2")
 fn decode_tuple2(a: Dynamic) -> Result(#(Dynamic, Dynamic), DecodeErrors)
 
 @external(erlang, "gleam_stdlib", "decode_tuple3")
+@external(elixir, "gleam_stdlib", "decode_tuple3")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple3")
 fn decode_tuple3(
   a: Dynamic,
 ) -> Result(#(Dynamic, Dynamic, Dynamic), DecodeErrors)
 
 @external(erlang, "gleam_stdlib", "decode_tuple4")
+@external(elixir, "gleam_stdlib", "decode_tuple4")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple4")
 fn decode_tuple4(
   a: Dynamic,
 ) -> Result(#(Dynamic, Dynamic, Dynamic, Dynamic), DecodeErrors)
 
 @external(erlang, "gleam_stdlib", "decode_tuple5")
+@external(elixir, "gleam_stdlib", "decode_tuple5")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple5")
 fn decode_tuple5(
   a: Dynamic,
 ) -> Result(#(Dynamic, Dynamic, Dynamic, Dynamic, Dynamic), DecodeErrors)
 
 @external(erlang, "gleam_stdlib", "decode_tuple6")
+@external(elixir, "gleam_stdlib", "decode_tuple6")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple6")
 fn decode_tuple6(
   a: Dynamic,
@@ -575,10 +612,12 @@ fn decode_tuple6(
 )
 
 @external(erlang, "gleam_stdlib", "tuple_get")
+@external(elixir, "gleam_stdlib", "tuple_get")
 @external(javascript, "../gleam_stdlib.mjs", "tuple_get")
 fn tuple_get(a: UnknownTuple, b: Int) -> Result(Dynamic, DecodeErrors)
 
 @external(erlang, "gleam_stdlib", "size_of_tuple")
+@external(elixir, "gleam_stdlib", "size_of_tuple")
 @external(javascript, "../gleam_stdlib.mjs", "length")
 fn tuple_size(a: UnknownTuple) -> Int
 
@@ -986,6 +1025,7 @@ pub fn map(
 }
 
 @external(erlang, "gleam_stdlib", "decode_map")
+@external(elixir, "gleam_stdlib", "decode_map")
 @external(javascript, "../gleam_stdlib.mjs", "decode_map")
 fn decode_map(a: Dynamic) -> Result(Dict(Dynamic, Dynamic), DecodeErrors)
 

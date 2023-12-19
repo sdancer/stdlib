@@ -34,6 +34,7 @@ pub fn parse(string: String) -> Result(Float, Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "parse_float")
+@external(elixir, "gleam_stdlib", "parse_float")
 @external(javascript, "../gleam_stdlib.mjs", "parse_float")
 fn do_parse(a: String) -> Result(Float, Nil)
 
@@ -51,6 +52,7 @@ pub fn to_string(x: Float) -> String {
 }
 
 @external(erlang, "gleam_stdlib", "float_to_string")
+@external(elixir, "gleam_stdlib", "float_to_string")
 @external(javascript, "../gleam_stdlib.mjs", "float_to_string")
 fn do_to_string(a: Float) -> String
 
@@ -201,6 +203,7 @@ pub fn ceiling(x: Float) -> Float {
 }
 
 @external(erlang, "math", "ceil")
+@external(elixir, "math", "ceil")
 @external(javascript, "../gleam_stdlib.mjs", "ceiling")
 fn do_ceiling(a: Float) -> Float
 
@@ -218,6 +221,7 @@ pub fn floor(x: Float) -> Float {
 }
 
 @external(erlang, "math", "floor")
+@external(elixir, "math", "floor")
 @external(javascript, "../gleam_stdlib.mjs", "floor")
 fn do_floor(a: Float) -> Float
 
@@ -241,6 +245,10 @@ pub fn round(x: Float) -> Int {
 
 @target(erlang)
 @external(erlang, "erlang", "round")
+fn do_round(a: Float) -> Int
+
+@target(elixir)
+@external(elixir, "erlang", "round")
 fn do_round(a: Float) -> Int
 
 @target(javascript)
@@ -269,6 +277,7 @@ pub fn truncate(x: Float) -> Int {
 }
 
 @external(erlang, "erlang", "trunc")
+@external(elixir, "erlang", "trunc")
 @external(javascript, "../gleam_stdlib.mjs", "truncate")
 fn do_truncate(a: Float) -> Int
 
@@ -338,6 +347,7 @@ pub fn power(base: Float, of exponent: Float) -> Result(Float, Nil) {
 }
 
 @external(erlang, "math", "pow")
+@external(elixir, "math", "pow")
 @external(javascript, "../gleam_stdlib.mjs", "power")
 fn do_power(a: Float, b: Float) -> Float
 
@@ -435,6 +445,7 @@ pub fn random(min: Float, max: Float) -> Float {
 /// See: <https://www.erlang.org/doc/man/rand.html#uniform-0>
 ///
 @external(erlang, "rand", "uniform")
+@external(elixir, "rand", "uniform")
 @external(javascript, "../gleam_stdlib.mjs", "random_uniform")
 fn do_random_uniform() -> Float
 

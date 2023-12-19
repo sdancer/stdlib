@@ -64,6 +64,10 @@ pub fn parse(uri_string: String) -> Result(Uri, Nil) {
 @external(erlang, "gleam_stdlib", "uri_parse")
 fn do_parse(a: String) -> Result(Uri, Nil)
 
+@target(elixir)
+@external(elixir, "gleam_stdlib", "uri_parse")
+fn do_parse(a: String) -> Result(Uri, Nil)
+
 @target(javascript)
 fn do_parse(uri_string: String) -> Result(Uri, Nil) {
   // From https://tools.ietf.org/html/rfc3986#appendix-B
@@ -213,6 +217,7 @@ pub fn parse_query(query: String) -> Result(List(#(String, String)), Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "parse_query")
+@external(elixir, "gleam_stdlib", "parse_query")
 @external(javascript, "../gleam_stdlib.mjs", "parse_query")
 fn do_parse_query(a: String) -> Result(List(#(String, String)), Nil)
 
@@ -257,6 +262,7 @@ pub fn percent_encode(value: String) -> String {
 }
 
 @external(erlang, "gleam_stdlib", "percent_encode")
+@external(elixir, "gleam_stdlib", "percent_encode")
 @external(javascript, "../gleam_stdlib.mjs", "percent_encode")
 fn do_percent_encode(a: String) -> String
 
@@ -274,6 +280,7 @@ pub fn percent_decode(value: String) -> Result(String, Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "percent_decode")
+@external(elixir, "gleam_stdlib", "percent_decode")
 @external(javascript, "../gleam_stdlib.mjs", "percent_decode")
 fn do_percent_decode(a: String) -> Result(String, Nil)
 

@@ -52,6 +52,7 @@ pub fn length(string: String) -> Int {
 }
 
 @external(erlang, "string", "length")
+@external(elixir, "string", "length")
 @external(javascript, "../gleam_stdlib.mjs", "string_length")
 fn do_length(a: String) -> Int
 
@@ -69,6 +70,14 @@ fn do_length(a: String) -> Int
 ///
 pub fn reverse(string: String) -> String {
   do_reverse(string)
+}
+
+@target(elixir)
+fn do_reverse(string: String) -> String {
+  string
+  |> string_builder.from_string
+  |> string_builder.reverse
+  |> string_builder.to_string
 }
 
 @target(erlang)
@@ -129,6 +138,7 @@ pub fn lowercase(string: String) -> String {
 }
 
 @external(erlang, "string", "lowercase")
+@external(elixir, "string", "lowercase")
 @external(javascript, "../gleam_stdlib.mjs", "lowercase")
 fn do_lowercase(a: String) -> String
 
@@ -149,6 +159,7 @@ pub fn uppercase(string: String) -> String {
 }
 
 @external(erlang, "string", "uppercase")
+@external(elixir, "string", "uppercase")
 @external(javascript, "../gleam_stdlib.mjs", "uppercase")
 fn do_uppercase(a: String) -> String
 
@@ -180,6 +191,7 @@ pub fn compare(a: String, b: String) -> order.Order {
 }
 
 @external(erlang, "gleam_stdlib", "less_than")
+@external(elixir, "gleam_stdlib", "less_than")
 @external(javascript, "../gleam_stdlib.mjs", "less_than")
 fn less_than(a: String, b: String) -> Bool
 
@@ -231,6 +243,7 @@ pub fn slice(from string: String, at_index idx: Int, length len: Int) -> String 
 }
 
 @external(erlang, "string", "slice")
+@external(elixir, "string", "slice")
 fn do_slice(string: String, idx: Int, len: Int) -> String {
   string
   |> to_graphemes
@@ -250,6 +263,7 @@ fn do_slice(string: String, idx: Int, len: Int) -> String {
 /// ```
 ///
 @external(erlang, "gleam_stdlib", "crop_string")
+@external(elixir, "gleam_stdlib", "crop_string")
 @external(javascript, "../gleam_stdlib.mjs", "crop_string")
 pub fn crop(from string: String, before substring: String) -> String
 
@@ -305,6 +319,7 @@ pub fn drop_right(from string: String, up_to num_graphemes: Int) -> String {
 /// ```
 ///
 @external(erlang, "gleam_stdlib", "contains_string")
+@external(elixir, "gleam_stdlib", "contains_string")
 @external(javascript, "../gleam_stdlib.mjs", "contains_string")
 pub fn contains(does haystack: String, contain needle: String) -> Bool
 
@@ -322,6 +337,7 @@ pub fn starts_with(string: String, prefix: String) -> Bool {
 }
 
 @external(erlang, "gleam_stdlib", "string_starts_with")
+@external(elixir, "gleam_stdlib", "string_starts_with")
 @external(javascript, "../gleam_stdlib.mjs", "starts_with")
 fn do_starts_with(a: String, b: String) -> Bool
 
@@ -339,6 +355,7 @@ pub fn ends_with(string: String, suffix: String) -> Bool {
 }
 
 @external(erlang, "gleam_stdlib", "string_ends_with")
+@external(elixir, "gleam_stdlib", "string_ends_with")
 @external(javascript, "../gleam_stdlib.mjs", "ends_with")
 fn do_ends_with(a: String, b: String) -> Bool
 
@@ -389,7 +406,19 @@ pub fn split_once(
 @external(erlang, "string", "split")
 fn erl_split(a: String, b: String) -> List(String)
 
+@target(elixir)
+@external(elixir, "string", "split")
+fn erl_split(a: String, b: String) -> List(String)
+
 @target(erlang)
+fn do_split_once(x: String, substring: String) -> Result(#(String, String), Nil) {
+  case erl_split(x, substring) {
+    [first, rest] -> Ok(#(first, rest))
+    _ -> Error(Nil)
+  }
+}
+
+@target(elixir)
 fn do_split_once(x: String, substring: String) -> Result(#(String, String), Nil) {
   case erl_split(x, substring) {
     [first, rest] -> Ok(#(first, rest))
@@ -570,6 +599,11 @@ fn do_trim(string: String) -> String {
   erl_trim(string, Both)
 }
 
+@target(elixir)
+fn do_trim(string: String) -> String {
+  erl_trim(string, Both)
+}
+
 @target(erlang)
 type Direction {
   Leading
@@ -577,8 +611,20 @@ type Direction {
   Both
 }
 
+@target(elixir)
+type Direction {
+  Leading
+  Trailing
+  Both
+}
+
+
 @target(erlang)
 @external(erlang, "string", "trim")
+fn erl_trim(a: String, b: Direction) -> String
+
+@target(elixir)
+@external(elixir, "string", "trim")
 fn erl_trim(a: String, b: Direction) -> String
 
 @target(javascript)
@@ -603,6 +649,11 @@ fn do_trim_left(string: String) -> String {
   erl_trim(string, Leading)
 }
 
+@target(elixir)
+fn do_trim_left(string: String) -> String {
+  erl_trim(string, Leading)
+}
+
 @target(javascript)
 @external(javascript, "../gleam_stdlib.mjs", "trim_left")
 fn do_trim_left(string string: String) -> String
@@ -618,6 +669,11 @@ fn do_trim_left(string string: String) -> String
 ///
 pub fn trim_right(string: String) -> String {
   do_trim_right(string)
+}
+
+@target(elixir)
+fn do_trim_right(string: String) -> String {
+  erl_trim(string, Trailing)
 }
 
 @target(erlang)
@@ -653,6 +709,7 @@ pub fn pop_grapheme(string: String) -> Result(#(String, String), Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "string_pop_grapheme")
+@external(elixir, "gleam_stdlib", "string_pop_grapheme")
 @external(javascript, "../gleam_stdlib.mjs", "pop_grapheme")
 fn do_pop_grapheme(string string: String) -> Result(#(String, String), Nil)
 
@@ -678,6 +735,7 @@ fn do_to_graphemes(string: String, acc: List(String)) -> List(String) {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
+@external(elixir, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "codepoint")
 fn unsafe_int_to_utf_codepoint(a: Int) -> UtfCodepoint
 
@@ -712,7 +770,25 @@ fn do_to_utf_codepoints(string: String) -> List(UtfCodepoint) {
   |> list.reverse
 }
 
+@target(elixir)
+fn do_to_utf_codepoints(string: String) -> List(UtfCodepoint) {
+  do_to_utf_codepoints_impl(<<string:utf8>>, [])
+  |> list.reverse
+}
+
 @target(erlang)
+fn do_to_utf_codepoints_impl(
+  bit_array: BitArray,
+  acc: List(UtfCodepoint),
+) -> List(UtfCodepoint) {
+  case bit_array {
+    <<first:utf8_codepoint, rest:bytes>> ->
+      do_to_utf_codepoints_impl(rest, [first, ..acc])
+    _ -> acc
+  }
+}
+
+@target(elixir)
 fn do_to_utf_codepoints_impl(
   bit_array: BitArray,
   acc: List(UtfCodepoint),
@@ -757,6 +833,7 @@ fn string_to_codepoint_integer_list(a: String) -> List(Int)
 /// ```
 ///
 @external(erlang, "gleam_stdlib", "utf_codepoint_list_to_string")
+@external(elixir, "gleam_stdlib", "utf_codepoint_list_to_string")
 @external(javascript, "../gleam_stdlib.mjs", "utf_codepoint_list_to_string")
 pub fn from_utf_codepoints(utf_codepoints: List(UtfCodepoint)) -> String
 
@@ -788,6 +865,7 @@ pub fn utf_codepoint_to_int(cp: UtfCodepoint) -> Int {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
+@external(elixir, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "utf_codepoint_to_int")
 fn do_utf_codepoint_to_int(cp cp: UtfCodepoint) -> Int
 
@@ -885,6 +963,7 @@ pub fn inspect(term: anything) -> String {
 }
 
 @external(erlang, "gleam_stdlib", "inspect")
+@external(elixir, "gleam_stdlib", "inspect")
 @external(javascript, "../gleam_stdlib.mjs", "inspect")
 fn do_inspect(term term: anything) -> StringBuilder
 
@@ -901,5 +980,6 @@ fn do_inspect(term term: anything) -> StringBuilder
 /// ```
 ///
 @external(erlang, "erlang", "byte_size")
+@external(elixir, "erlang", "byte_size")
 @external(javascript, "../gleam_stdlib.mjs", "byte_size")
 pub fn byte_size(string: String) -> Int

@@ -65,6 +65,7 @@ pub fn append_builder(
 }
 
 @external(erlang, "gleam_stdlib", "iodata_append")
+@external(elixir, "gleam_stdlib", "iodata_append")
 @external(javascript, "../gleam_stdlib.mjs", "add")
 fn do_append(a: StringBuilder, b: StringBuilder) -> StringBuilder
 
@@ -77,6 +78,7 @@ pub fn from_strings(strings: List(String)) -> StringBuilder {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
+@external(elixir, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "concat")
 fn do_from_strings(a: List(String)) -> StringBuilder
 
@@ -89,6 +91,7 @@ pub fn concat(builders: List(StringBuilder)) -> StringBuilder {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
+@external(elixir, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "concat")
 fn do_concat(a: List(StringBuilder)) -> StringBuilder
 
@@ -101,6 +104,7 @@ pub fn from_string(string: String) -> StringBuilder {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
+@external(elixir, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_from_string(a: String) -> StringBuilder
 
@@ -114,6 +118,7 @@ pub fn to_string(builder: StringBuilder) -> String {
 }
 
 @external(erlang, "unicode", "characters_to_binary")
+@external(elixir, "unicode", "characters_to_binary")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_to_string(a: StringBuilder) -> String
 
@@ -124,6 +129,7 @@ pub fn byte_size(builder: StringBuilder) -> Int {
 }
 
 @external(erlang, "erlang", "iolist_size")
+@external(elixir, "erlang", "iolist_size")
 @external(javascript, "../gleam_stdlib.mjs", "length")
 fn do_byte_size(a: StringBuilder) -> Int
 
@@ -143,6 +149,7 @@ pub fn lowercase(builder: StringBuilder) -> StringBuilder {
 }
 
 @external(erlang, "string", "lowercase")
+@external(elixir, "string", "lowercase")
 @external(javascript, "../gleam_stdlib.mjs", "lowercase")
 fn do_lowercase(a: StringBuilder) -> StringBuilder
 
@@ -154,6 +161,7 @@ pub fn uppercase(builder: StringBuilder) -> StringBuilder {
 }
 
 @external(erlang, "string", "uppercase")
+@external(elixir, "string", "uppercase")
 @external(javascript, "../gleam_stdlib.mjs", "uppercase")
 fn do_uppercase(a: StringBuilder) -> StringBuilder
 
@@ -164,7 +172,11 @@ pub fn reverse(builder: StringBuilder) -> StringBuilder {
 }
 
 @target(erlang)
-@external(erlang, "string", "reverse")
+@external(elixir, "string", "reverse")
+fn do_reverse(a: StringBuilder) -> StringBuilder
+
+@target(elixir)
+@external(elixir, "string", "reverse")
 fn do_reverse(a: StringBuilder) -> StringBuilder
 
 @target(javascript)
@@ -191,11 +203,25 @@ type Direction {
   All
 }
 
+@target(elixir)
+type Direction {
+  All
+}
+
 @target(erlang)
 @external(erlang, "string", "split")
 fn erl_split(a: StringBuilder, b: String, c: Direction) -> List(StringBuilder)
 
+@target(elixir)
+@external(elixir, "string", "split")
+fn erl_split(a: StringBuilder, b: String, c: Direction) -> List(StringBuilder)
+
 @target(erlang)
+fn do_split(iodata: StringBuilder, pattern: String) -> List(StringBuilder) {
+  erl_split(iodata, pattern, All)
+}
+
+@target(elixir)
 fn do_split(iodata: StringBuilder, pattern: String) -> List(StringBuilder) {
   erl_split(iodata, pattern, All)
 }
@@ -235,6 +261,24 @@ fn erl_replace(
   d: Direction,
 ) -> StringBuilder
 
+@target(elixir)
+fn do_replace(
+  iodata: StringBuilder,
+  pattern: String,
+  substitute: String,
+) -> StringBuilder {
+  erl_replace(iodata, pattern, substitute, All)
+}
+
+@target(elixir)
+@external(elixir, "string", "replace")
+fn erl_replace(
+  a: StringBuilder,
+  b: String,
+  c: String,
+  d: Direction,
+) -> StringBuilder
+
 @target(javascript)
 @external(javascript, "../gleam_stdlib.mjs", "string_replace")
 fn do_replace(a: StringBuilder, b: String, c: String) -> StringBuilder
@@ -262,6 +306,7 @@ pub fn is_equal(a: StringBuilder, b: StringBuilder) -> Bool {
 }
 
 @external(erlang, "string", "equal")
+@external(elixir, "string", "equal")
 @external(javascript, "../gleam_stdlib.mjs", "equal")
 fn do_is_equal(a: StringBuilder, b: StringBuilder) -> Bool
 
@@ -290,6 +335,10 @@ pub fn is_empty(builder: StringBuilder) -> Bool {
 
 @target(erlang)
 @external(erlang, "string", "is_empty")
+fn do_is_empty(a: StringBuilder) -> Bool
+
+@target(elixir)
+@external(elixir, "string", "is_empty")
 fn do_is_empty(a: StringBuilder) -> Bool
 
 @target(javascript)

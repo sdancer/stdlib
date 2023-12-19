@@ -20,6 +20,23 @@ pub fn be_ok(a: Result(a, b)) -> Nil
 @external(erlang, "gleam_stdlib_test_ffi", "should_be_error")
 pub fn be_error(a: Result(a, b)) -> Nil
 
+@target(elixir)
+@external(elixir, "gleam_stdlib_test_ffi", "should_equal")
+pub fn equal(a: a, b: a) -> Nil
+
+@target(elixir)
+@external(elixir, "gleam_stdlib_test_ffi", "should_not_equal")
+pub fn not_equal(a: a, b: a) -> Nil
+
+@target(elixir)
+@external(elixir, "gleam_stdlib_test_ffi", "should_be_ok")
+pub fn be_ok(a: Result(a, b)) -> Nil
+
+@target(elixir)
+@external(elixir, "gleam_stdlib_test_ffi", "should_be_error")
+pub fn be_error(a: Result(a, b)) -> Nil
+
+
 @target(javascript)
 import gleam/string
 

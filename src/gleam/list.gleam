@@ -67,6 +67,10 @@ pub fn length(of list: List(a)) -> Int {
 @external(erlang, "erlang", "length")
 fn do_length(a: List(a)) -> Int
 
+@target(elixir)
+@external(elixir, "erlang", "length")
+fn do_length(a: List(a)) -> Int
+
 @target(javascript)
 fn do_length(list: List(a)) -> Int {
   do_length_acc(list, 0)
@@ -112,6 +116,10 @@ pub fn reverse(xs: List(a)) -> List(a) {
 
 @target(erlang)
 @external(erlang, "lists", "reverse")
+fn do_reverse(a: List(a)) -> List(a)
+
+@target(elixir)
+@external(elixir, "lists", "reverse")
 fn do_reverse(a: List(a)) -> List(a)
 
 @target(javascript)
@@ -623,6 +631,10 @@ pub fn append(first: List(a), second: List(a)) -> List(a) {
 
 @target(erlang)
 @external(erlang, "lists", "append")
+fn do_append(a: List(a), b: List(a)) -> List(a)
+
+@target(elixir)
+@external(elixir, "lists", "append")
 fn do_append(a: List(a), b: List(a)) -> List(a)
 
 @target(javascript)

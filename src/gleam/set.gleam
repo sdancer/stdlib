@@ -11,6 +11,13 @@ type Token =
 @target(erlang)
 const token = []
 
+@target(elixir)
+type Token =
+  List(Nil)
+
+@target(elixir)
+const token = []
+
 @target(javascript)
 type Token =
   Nil
