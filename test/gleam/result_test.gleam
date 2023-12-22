@@ -152,19 +152,19 @@ pub fn nil_error_test() {
 
 pub fn or_test() {
   Ok(1)
-  |> result.or(Ok(2))
+  |> result.or_res(Ok(2))
   |> should.equal(Ok(1))
 
   Ok(1)
-  |> result.or(Error("Error 2"))
+  |> result.or_res(Error("Error 2"))
   |> should.equal(Ok(1))
 
   Error("Error 1")
-  |> result.or(Ok(2))
+  |> result.or_res(Ok(2))
   |> should.equal(Ok(2))
 
   Error("Error 1")
-  |> result.or(Error("Error 2"))
+  |> result.or_res(Error("Error 2"))
   |> should.equal(Error("Error 2"))
 }
 

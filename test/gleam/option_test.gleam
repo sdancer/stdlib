@@ -104,19 +104,19 @@ pub fn then_option_test() {
 
 pub fn or_option_test() {
   Some(1)
-  |> option.or(Some(2))
+  |> option.or_opt(Some(2))
   |> should.equal(Some(1))
 
   Some(1)
-  |> option.or(None)
+  |> option.or_opt(None)
   |> should.equal(Some(1))
 
   None
-  |> option.or(Some(2))
+  |> option.or_opt(Some(2))
   |> should.equal(Some(2))
 
   None
-  |> option.or(None)
+  |> option.or_opt(None)
   |> should.equal(None)
 }
 

@@ -30,9 +30,19 @@ import gleam/order.{type Order}
 /// False
 /// ```
 ///
+@target(erlang)
 pub fn and(a: Bool, b: Bool) -> Bool {
   a && b
 }
+@target(javascript)
+pub fn and(a: Bool, b: Bool) -> Bool {
+  a && b
+}
+@target(elixir)
+pub fn band(a: Bool, b: Bool) -> Bool {
+  a && b
+}
+
 
 /// Returns the or of two bools, but it evaluates both arguments.
 ///
@@ -56,9 +66,20 @@ pub fn and(a: Bool, b: Bool) -> Bool {
 /// True
 /// ```
 ///
+@target(javascript)
 pub fn or(a: Bool, b: Bool) -> Bool {
   a || b
 }
+@target(erlang)
+pub fn or(a: Bool, b: Bool) -> Bool {
+  a || b
+}
+@target(elixir)
+pub fn bor(a: Bool, b: Bool) -> Bool {
+  a || b
+}
+
+
 
 /// Returns the opposite bool value.
 ///

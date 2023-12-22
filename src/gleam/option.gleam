@@ -278,12 +278,31 @@ pub fn then(option: Option(a), apply fun: fn(a) -> Option(b)) -> Option(b) {
 /// None
 /// ```
 ///
+pub fn or_opt(first: Option(a), second: Option(a)) -> Option(a) {
+  case first {
+    Some(_) -> first
+    None -> second
+  }
+}
+
+
+
+@target(erlang)
 pub fn or(first: Option(a), second: Option(a)) -> Option(a) {
   case first {
     Some(_) -> first
     None -> second
   }
 }
+
+@target(javascript)
+pub fn or(first: Option(a), second: Option(a)) -> Option(a) {
+  case first {
+    Some(_) -> first
+    None -> second
+  }
+}
+
 
 /// Returns the first value if it is `Some`, otherwise evaluates the given function for a fallback value.
 ///

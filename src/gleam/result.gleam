@@ -304,7 +304,7 @@ pub fn nil_error(result: Result(a, e)) -> Result(a, Nil) {
 /// Error("Error 2")
 /// ```
 ///
-pub fn or(first: Result(a, e), second: Result(a, e)) -> Result(a, e) {
+pub fn or_res(first: Result(a, e), second: Result(a, e)) -> Result(a, e) {
   case first {
     Ok(_) -> first
     Error(_) -> second

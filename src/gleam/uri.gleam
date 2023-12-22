@@ -423,10 +423,10 @@ pub fn merge(base: Uri, relative: Uri) -> Result(Uri, Nil) {
             |> join_segments()
           let resolved =
             Uri(
-              option.or(relative.scheme, base.scheme),
+              option.or_opt(relative.scheme, base.scheme),
               None,
               relative.host,
-              option.or(relative.port, base.port),
+              option.or_opt(relative.port, base.port),
               path,
               relative.query,
               relative.fragment,
@@ -435,7 +435,7 @@ pub fn merge(base: Uri, relative: Uri) -> Result(Uri, Nil) {
         }
         _ -> {
           let #(new_path, new_query) = case relative.path {
-            "" -> #(base.path, option.or(relative.query, base.query))
+            "" -> #(base.path, option.or_opt(relative.query, base.query))
             _ -> {
               let path_segments = case string.starts_with(relative.path, "/") {
                 True -> string.split(relative.path, "/")
