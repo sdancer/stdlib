@@ -109,7 +109,7 @@ pub fn parse(string: String) -> Result(Int, Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "parse_int")
-@external(elixir, "gleam_stdlib", "parse_int")
+@external(elixir, "Elixir.GleamStdLib", "parse_int")
 @external(javascript, "../gleam_stdlib.mjs", "parse_int")
 fn do_parse(a: String) -> Result(Int, Nil)
 
@@ -143,7 +143,7 @@ pub fn base_parse(string: String, base: Int) -> Result(Int, Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "int_from_base_string")
-@external(elixir, "gleam_stdlib", "int_from_base_string")
+@external(elixir, "Elixir.GleamStdLib", "int_from_base_string")
 @external(javascript, "../gleam_stdlib.mjs", "int_from_base_string")
 fn do_base_parse(a: String, b: Int) -> Result(Int, Nil)
 

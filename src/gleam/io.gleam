@@ -17,7 +17,7 @@ pub fn print(string: String) -> Nil {
 }
 
 @external(erlang, "gleam_stdlib", "print")
-@external(elixir, "gleam_stdlib", "print")
+@external(elixir, "Elixir.GleamStdLib", "print")
 @external(javascript, "../gleam_stdlib.mjs", "print")
 fn do_print(string string: String) -> Nil
 
@@ -38,7 +38,7 @@ pub fn print_error(string: String) -> Nil {
 }
 
 @external(erlang, "gleam_stdlib", "print_error")
-@external(elixir, "gleam_stdlib", "print_error")
+@external(elixir, "Elixir.GleamStdLib", "print_error")
 @external(javascript, "../gleam_stdlib.mjs", "print_error")
 fn do_print_error(string string: String) -> Nil
 
@@ -57,7 +57,7 @@ pub fn println(string: String) -> Nil {
 }
 
 @external(erlang, "gleam_stdlib", "println")
-@external(elixir, "gleam_stdlib", "println")
+@external(elixir, "Elixir.GleamStdLib", "println")
 @external(javascript, "../gleam_stdlib.mjs", "console_log")
 fn do_println(string string: String) -> Nil
 
@@ -76,7 +76,7 @@ pub fn println_error(string: String) -> Nil {
 }
 
 @external(erlang, "gleam_stdlib", "println_error")
-@external(elixir, "gleam_stdlib", "println_error")
+@external(elixir, "Elixir.GleamStdLib", "println_error")
 @external(javascript, "../gleam_stdlib.mjs", "console_error")
 fn do_println_error(string string: String) -> Nil
 
@@ -117,6 +117,6 @@ pub fn debug(term: anything) -> anything {
 }
 
 @external(erlang, "gleam_stdlib", "println_error")
-@external(elixir, "gleam_stdlib", "println_error")
+@external(elixir, "Elixir.GleamStdLib", "println_error")
 @external(javascript, "../gleam_stdlib.mjs", "print_debug")
 fn do_debug_println(string string: String) -> Nil

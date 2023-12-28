@@ -136,7 +136,7 @@ pub fn get(from: Dict(key, value), get: key) -> Result(value, Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "map_get")
-@external(elixir, "gleam_stdlib", "map_get")
+@external(elixir, "Elixir.GleamStdLib", "map_get")
 @external(javascript, "../gleam_stdlib.mjs", "map_get")
 fn do_get(a: Dict(key, value), b: key) -> Result(value, Nil)
 

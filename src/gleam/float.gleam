@@ -34,7 +34,7 @@ pub fn parse(string: String) -> Result(Float, Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "parse_float")
-@external(elixir, "gleam_stdlib", "parse_float")
+@external(elixir, "Elixir.GleamStdLib", "parse_float")
 @external(javascript, "../gleam_stdlib.mjs", "parse_float")
 fn do_parse(a: String) -> Result(Float, Nil)
 
@@ -52,7 +52,7 @@ pub fn to_string(x: Float) -> String {
 }
 
 @external(erlang, "gleam_stdlib", "float_to_string")
-@external(elixir, "gleam_stdlib", "float_to_string")
+@external(elixir, "Elixir.GleamStdLib", "float_to_string")
 @external(javascript, "../gleam_stdlib.mjs", "float_to_string")
 fn do_to_string(a: Float) -> String
 

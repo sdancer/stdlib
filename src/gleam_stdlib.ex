@@ -317,8 +317,8 @@ defmodule GleamStdLib do
 
   def string_pop_grapheme(string) do
     case String.next_grapheme(string) do
-      {next, rest} -> {:ok, {next, rest}}
-      _ -> {:error, nil}
+      {next, rest} -> ok({next, rest})
+      _ -> error(nil)
     end
   end
 

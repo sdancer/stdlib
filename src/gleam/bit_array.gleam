@@ -5,7 +5,7 @@ import gleam/string
 /// Converts a UTF-8 `String` type into a `BitArray`.
 ///
 @external(erlang, "gleam_stdlib", "identity")
-@external(elixir, "gleam_stdlib", "identity")
+@external(elixir, "Elixir.GleamStdLib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "bit_array_from_string")
 pub fn from_string(x: String) -> BitArray
 
@@ -38,7 +38,7 @@ pub fn append(to first: BitArray, suffix second: BitArray) -> BitArray {
 /// This function runs in constant time.
 ///
 @external(erlang, "gleam_stdlib", "bit_array_slice")
-@external(elixir, "gleam_stdlib", "bit_array_slice")
+@external(elixir, "Elixir.GleamStdLib", "bit_array_slice")
 @external(javascript, "../gleam_stdlib.mjs", "bit_array_slice")
 pub fn slice(
   from string: BitArray,
@@ -92,7 +92,7 @@ pub fn to_string(bits: BitArray) -> Result(String, Nil) {
 fn unsafe_to_string(a: BitArray) -> String
 
 @target(elixir)
-@external(elixir, "gleam_stdlib", "identity")
+@external(elixir, "Elixir.GleamStdLib", "identity")
 fn unsafe_to_string(a: BitArray) -> String
 
 @target(erlang)
@@ -125,7 +125,7 @@ fn do_to_string(a: BitArray) -> Result(String, Nil)
 /// ```
 ///
 @external(erlang, "gleam_stdlib", "bit_array_concat")
-@external(elixir, "gleam_stdlib", "bit_array_concat")
+@external(elixir, "Elixir.GleamStdLib", "bit_array_concat")
 @external(javascript, "../gleam_stdlib.mjs", "bit_array_concat")
 pub fn concat(bit_arrays: List(BitArray)) -> BitArray
 
@@ -155,7 +155,7 @@ pub fn base64_decode(encoded: String) -> Result(BitArray, Nil) {
 }
 
 @external(erlang, "gleam_stdlib", "base_decode64")
-@external(elixir, "gleam_stdlib", "base_decode64")
+@external(elixir, "Elixir.GleamStdLib", "base_decode64")
 @external(javascript, "../gleam_stdlib.mjs", "decode64")
 fn decode64(a: String) -> Result(BitArray, Nil)
 
@@ -182,6 +182,6 @@ pub fn base64_url_decode(encoded: String) -> Result(BitArray, Nil) {
 pub fn base16_encode(input: BitArray) -> String
 
 @external(erlang, "gleam_stdlib", "base16_decode")
-@external(elixir, "gleam_stdlib", "base16_decode")
+@external(elixir, "Elixir.GleamStdLib", "base16_decode")
 @external(javascript, "../gleam_stdlib.mjs", "base16_decode")
 pub fn base16_decode(input: String) -> Result(BitArray, Nil)

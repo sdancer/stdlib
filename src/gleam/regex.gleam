@@ -60,7 +60,7 @@ pub fn compile(
 }
 
 @external(erlang, "gleam_stdlib", "compile_regex")
-@external(elixir, "gleam_stdlib", "compile_regex")
+@external(elixir, "Elixir.GleamStdLib", "compile_regex")
 @external(javascript, "../gleam_stdlib.mjs", "compile_regex")
 fn do_compile(a: String, with with: Options) -> Result(Regex, CompileError)
 
@@ -113,7 +113,7 @@ pub fn check(with regex: Regex, content content: String) -> Bool {
 }
 
 @external(erlang, "gleam_stdlib", "regex_check")
-@external(elixir, "gleam_stdlib", "regex_check")
+@external(elixir, "Elixir.GleamStdLib", "regex_check")
 @external(javascript, "../gleam_stdlib.mjs", "regex_check")
 fn do_check(a: Regex, b: String) -> Bool
 
@@ -136,7 +136,7 @@ pub fn split(with regex: Regex, content string: String) -> List(String) {
 fn do_split(a: Regex, b: String) -> List(String)
 
 @target(elixir)
-@external(elixir, "gleam_stdlib", "regex_split")
+@external(elixir, "Elixir.GleamStdLib", "regex_split")
 fn do_split(a: Regex, b: String) -> List(String)
 
 
@@ -217,6 +217,6 @@ pub fn scan(with regex: Regex, content string: String) -> List(Match) {
 }
 
 @external(erlang, "gleam_stdlib", "regex_scan")
-@external(elixir, "gleam_stdlib", "regex_scan")
+@external(elixir, "Elixir.GleamStdLib", "regex_scan")
 @external(javascript, "../gleam_stdlib.mjs", "regex_scan")
 fn do_scan(a: Regex, b: String) -> List(Match)

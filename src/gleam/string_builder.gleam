@@ -65,7 +65,7 @@ pub fn append_builder(
 }
 
 @external(erlang, "gleam_stdlib", "iodata_append")
-@external(elixir, "gleam_stdlib", "iodata_append")
+@external(elixir, "Elixir.GleamStdLib", "iodata_append")
 @external(javascript, "../gleam_stdlib.mjs", "add")
 fn do_append(a: StringBuilder, b: StringBuilder) -> StringBuilder
 
@@ -78,7 +78,7 @@ pub fn from_strings(strings: List(String)) -> StringBuilder {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
-@external(elixir, "gleam_stdlib", "identity")
+@external(elixir, "Elixir.GleamStdLib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "concat")
 fn do_from_strings(a: List(String)) -> StringBuilder
 
@@ -91,7 +91,7 @@ pub fn concat(builders: List(StringBuilder)) -> StringBuilder {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
-@external(elixir, "gleam_stdlib", "identity")
+@external(elixir, "Elixir.GleamStdLib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "concat")
 fn do_concat(a: List(StringBuilder)) -> StringBuilder
 
@@ -104,7 +104,7 @@ pub fn from_string(string: String) -> StringBuilder {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
-@external(elixir, "gleam_stdlib", "identity")
+@external(elixir, "Elixir.GleamStdLib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_from_string(a: String) -> StringBuilder
 
