@@ -6,8 +6,6 @@ import gleam/result
 import gleam/string_builder
 @target(erlang)
 import gleam/bit_array
-@target(elixir)
-import gleam/bit_array
 
 /// `Dynamic` data is data that we don't know the type of yet.
 /// We likely get data like this from interop with Erlang, or from
