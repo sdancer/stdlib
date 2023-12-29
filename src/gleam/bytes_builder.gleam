@@ -64,8 +64,8 @@ pub fn prepend_builder(
 ///
 /// Runs in constant time.
 ///
-@external(erlang, "gleam_stdlib", "iodata_append")
 @external(elixir, "Elixir.GleamStdLib", "iodata_append")
+@external(erlang, "gleam_stdlib", "iodata_append")
 pub fn append_builder(
   to first: BytesBuilder,
   suffix second: BytesBuilder,
@@ -104,8 +104,8 @@ pub fn append_string(
 ///
 /// Runs in constant time.
 ///
-@external(erlang, "gleam_stdlib", "identity")
 @external(elixir, "Elixir.GleamStdLib", "identity")
+@external(erlang, "gleam_stdlib", "identity")
 pub fn concat(builders: List(BytesBuilder)) -> BytesBuilder {
   Many(builders)
 }
@@ -114,8 +114,8 @@ pub fn concat(builders: List(BytesBuilder)) -> BytesBuilder {
 ///
 /// Runs in constant time.
 ///
-@external(erlang, "gleam_stdlib", "identity")
 @external(elixir, "Elixir.GleamStdLib", "identity")
+@external(erlang, "gleam_stdlib", "identity")
 pub fn concat_bit_arrays(bits: List(BitArray)) -> BytesBuilder {
   bits
   |> list.map(fn(b) { from_bit_array(b) })
@@ -127,8 +127,8 @@ pub fn concat_bit_arrays(bits: List(BitArray)) -> BytesBuilder {
 /// Runs in constant time when running on Erlang.
 /// Runs in linear time otherwise.
 ///
-@external(erlang, "gleam_stdlib", "wrap_list")
 @external(elixir, "Elixir.GleamStdLib", "wrap_list")
+@external(erlang, "gleam_stdlib", "wrap_list")
 pub fn from_string(string: String) -> BytesBuilder {
   Text(string_builder.from_string(string))
 }
@@ -138,8 +138,8 @@ pub fn from_string(string: String) -> BytesBuilder {
 /// Runs in constant time when running on Erlang.
 /// Runs in linear time otherwise.
 ///
-@external(erlang, "gleam_stdlib", "wrap_list")
 @external(elixir, "Elixir.GleamStdLib", "wrap_list")
+@external(erlang, "gleam_stdlib", "wrap_list")
 pub fn from_string_builder(builder: StringBuilder) -> BytesBuilder {
   Text(builder)
 }
@@ -148,8 +148,8 @@ pub fn from_string_builder(builder: StringBuilder) -> BytesBuilder {
 ///
 /// Runs in constant time.
 ///
-@external(erlang, "gleam_stdlib", "wrap_list")
 @external(elixir, "Elixir.GleamStdLib", "wrap_list")
+@external(erlang, "gleam_stdlib", "wrap_list")
 pub fn from_bit_array(bits: BitArray) -> BytesBuilder {
   Bytes(bits)
 }
@@ -161,8 +161,8 @@ pub fn from_bit_array(bits: BitArray) -> BytesBuilder {
 /// When running on Erlang this function is implemented natively by the
 /// virtual machine and is highly optimised.
 ///
-@external(erlang, "erlang", "list_to_bitstring")
 @external(elixir, "erlang", "list_to_bitstring")
+@external(erlang, "erlang", "list_to_bitstring")
 pub fn to_bit_array(builder: BytesBuilder) -> BitArray {
   [[builder]]
   |> to_list([])
@@ -196,8 +196,8 @@ fn to_list(
 ///
 /// Runs in linear time.
 ///
-@external(erlang, "erlang", "iolist_size")
 @external(elixir, "erlang", "iolist_size")
+@external(erlang, "erlang", "iolist_size")
 pub fn byte_size(builder: BytesBuilder) -> Int {
   [[builder]]
   |> to_list([])

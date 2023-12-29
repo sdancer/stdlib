@@ -31,8 +31,8 @@ pub fn from(a) -> Dynamic {
   do_from(a)
 }
 
-@external(erlang, "gleam_stdlib", "identity")
 @external(elixir, "Elixir.GleamStdLib", "identity")
+@external(erlang, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_from(a: anything) -> Dynamic
 
@@ -47,8 +47,8 @@ pub fn unsafe_coerce(a: Dynamic) -> anything {
   do_unsafe_coerce(a)
 }
 
-@external(erlang, "gleam_stdlib", "identity")
 @external(elixir, "Elixir.GleamStdLib", "identity")
+@external(erlang, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_unsafe_coerce(a: Dynamic) -> a
 
@@ -86,8 +86,8 @@ pub fn bit_string(from data: Dynamic) -> Result(BitArray, DecodeErrors) {
   bit_array(data)
 }
 
-@external(erlang, "gleam_stdlib", "decode_bit_array")
 @external(elixir, "Elixir.GleamStdLib", "decode_bit_array")
+@external(erlang, "gleam_stdlib", "decode_bit_array")
 @external(javascript, "../gleam_stdlib.mjs", "decode_bit_array")
 fn decode_bit_array(a: Dynamic) -> Result(BitArray, DecodeErrors)
 
@@ -168,8 +168,8 @@ pub fn classify(data: Dynamic) -> String {
   do_classify(data)
 }
 
-@external(erlang, "gleam_stdlib", "classify_dynamic")
 @external(elixir, "Elixir.GleamStdLib", "classify_dynamic")
+@external(erlang, "gleam_stdlib", "classify_dynamic")
 @external(javascript, "../gleam_stdlib.mjs", "classify_dynamic")
 fn do_classify(a: Dynamic) -> String
 
@@ -192,8 +192,8 @@ pub fn int(from data: Dynamic) -> Result(Int, DecodeErrors) {
   decode_int(data)
 }
 
-@external(erlang, "gleam_stdlib", "decode_int")
 @external(elixir, "Elixir.GleamStdLib", "decode_int")
+@external(erlang, "gleam_stdlib", "decode_int")
 @external(javascript, "../gleam_stdlib.mjs", "decode_int")
 fn decode_int(a: Dynamic) -> Result(Int, DecodeErrors)
 
@@ -216,8 +216,8 @@ pub fn float(from data: Dynamic) -> Result(Float, DecodeErrors) {
   decode_float(data)
 }
 
-@external(erlang, "gleam_stdlib", "decode_float")
 @external(elixir, "Elixir.GleamStdLib", "decode_float")
+@external(erlang, "gleam_stdlib", "decode_float")
 @external(javascript, "../gleam_stdlib.mjs", "decode_float")
 fn decode_float(a: Dynamic) -> Result(Float, DecodeErrors)
 
@@ -240,8 +240,8 @@ pub fn bool(from data: Dynamic) -> Result(Bool, DecodeErrors) {
   decode_bool(data)
 }
 
-@external(erlang, "gleam_stdlib", "decode_bool")
 @external(elixir, "Elixir.GleamStdLib", "decode_bool")
+@external(erlang, "gleam_stdlib", "decode_bool")
 @external(javascript, "../gleam_stdlib.mjs", "decode_bool")
 fn decode_bool(a: Dynamic) -> Result(Bool, DecodeErrors)
 
@@ -267,13 +267,13 @@ pub fn shallow_list(from value: Dynamic) -> Result(List(Dynamic), DecodeErrors) 
   decode_list(value)
 }
 
-@external(erlang, "gleam_stdlib", "decode_list")
 @external(elixir, "Elixir.GleamStdLib", "decode_list")
+@external(erlang, "gleam_stdlib", "decode_list")
 @external(javascript, "../gleam_stdlib.mjs", "decode_list")
 fn decode_list(a: Dynamic) -> Result(List(Dynamic), DecodeErrors)
 
-@external(erlang, "gleam_stdlib", "decode_result")
 @external(elixir, "Elixir.GleamStdLib", "decode_result")
+@external(erlang, "gleam_stdlib", "decode_result")
 @external(javascript, "../gleam_stdlib.mjs", "decode_result")
 fn decode_result(a: Dynamic) -> Result(Result(a, e), DecodeErrors)
 
@@ -415,8 +415,8 @@ pub fn optional(of decode: Decoder(inner)) -> Decoder(Option(inner)) {
   fn(value) { decode_optional(value, decode) }
 }
 
-@external(erlang, "gleam_stdlib", "decode_option")
 @external(elixir, "Elixir.GleamStdLib", "decode_option")
+@external(erlang, "gleam_stdlib", "decode_option")
 @external(javascript, "../gleam_stdlib.mjs", "decode_option")
 fn decode_optional(a: Dynamic, b: Decoder(a)) -> Result(Option(a), DecodeErrors)
 
@@ -500,8 +500,8 @@ pub fn optional_field(
   }
 }
 
-@external(erlang, "gleam_stdlib", "decode_field")
 @external(elixir, "Elixir.GleamStdLib", "decode_field")
+@external(erlang, "gleam_stdlib", "decode_field")
 @external(javascript, "../gleam_stdlib.mjs", "decode_field")
 fn decode_field(a: Dynamic, b: name) -> Result(Option(Dynamic), DecodeErrors)
 
@@ -568,39 +568,39 @@ fn at_least_decode_tuple_error(
 // A tuple of unknown size
 type UnknownTuple
 
-@external(erlang, "gleam_stdlib", "decode_tuple")
 @external(elixir, "Elixir.GleamStdLib", "decode_tuple")
+@external(erlang, "gleam_stdlib", "decode_tuple")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple")
 fn decode_tuple(a: Dynamic) -> Result(UnknownTuple, DecodeErrors)
 
-@external(erlang, "gleam_stdlib", "decode_tuple2")
 @external(elixir, "Elixir.GleamStdLib", "decode_tuple2")
+@external(erlang, "gleam_stdlib", "decode_tuple2")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple2")
 fn decode_tuple2(a: Dynamic) -> Result(#(Dynamic, Dynamic), DecodeErrors)
 
-@external(erlang, "gleam_stdlib", "decode_tuple3")
 @external(elixir, "Elixir.GleamStdLib", "decode_tuple3")
+@external(erlang, "gleam_stdlib", "decode_tuple3")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple3")
 fn decode_tuple3(
   a: Dynamic,
 ) -> Result(#(Dynamic, Dynamic, Dynamic), DecodeErrors)
 
-@external(erlang, "gleam_stdlib", "decode_tuple4")
 @external(elixir, "Elixir.GleamStdLib", "decode_tuple4")
+@external(erlang, "gleam_stdlib", "decode_tuple4")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple4")
 fn decode_tuple4(
   a: Dynamic,
 ) -> Result(#(Dynamic, Dynamic, Dynamic, Dynamic), DecodeErrors)
 
-@external(erlang, "gleam_stdlib", "decode_tuple5")
 @external(elixir, "Elixir.GleamStdLib", "decode_tuple5")
+@external(erlang, "gleam_stdlib", "decode_tuple5")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple5")
 fn decode_tuple5(
   a: Dynamic,
 ) -> Result(#(Dynamic, Dynamic, Dynamic, Dynamic, Dynamic), DecodeErrors)
 
-@external(erlang, "gleam_stdlib", "decode_tuple6")
 @external(elixir, "Elixir.GleamStdLib", "decode_tuple6")
+@external(erlang, "gleam_stdlib", "decode_tuple6")
 @external(javascript, "../gleam_stdlib.mjs", "decode_tuple6")
 fn decode_tuple6(
   a: Dynamic,
@@ -609,13 +609,13 @@ fn decode_tuple6(
   DecodeErrors,
 )
 
-@external(erlang, "gleam_stdlib", "tuple_get")
 @external(elixir, "Elixir.GleamStdLib", "tuple_get")
+@external(erlang, "gleam_stdlib", "tuple_get")
 @external(javascript, "../gleam_stdlib.mjs", "tuple_get")
 fn tuple_get(a: UnknownTuple, b: Int) -> Result(Dynamic, DecodeErrors)
 
-@external(erlang, "gleam_stdlib", "size_of_tuple")
 @external(elixir, "Elixir.GleamStdLib", "size_of_tuple")
+@external(erlang, "gleam_stdlib", "size_of_tuple")
 @external(javascript, "../gleam_stdlib.mjs", "length")
 fn tuple_size(a: UnknownTuple) -> Int
 
@@ -1022,8 +1022,8 @@ pub fn map(
   dict(key_type, value_type)
 }
 
-@external(erlang, "gleam_stdlib", "decode_map")
 @external(elixir, "Elixir.GleamStdLib", "decode_map")
+@external(erlang, "gleam_stdlib", "decode_map")
 @external(javascript, "../gleam_stdlib.mjs", "decode_map")
 fn decode_map(a: Dynamic) -> Result(Dict(Dynamic, Dynamic), DecodeErrors)
 
@@ -1204,12 +1204,14 @@ pub fn decode4(
     case t1(x), t2(x), t3(x), t4(x) {
       Ok(a), Ok(b), Ok(c), Ok(d) -> Ok(constructor(a, b, c, d))
       a, b, c, d ->
-        Error(list.concat([
-          all_errors(a),
-          all_errors(b),
-          all_errors(c),
-          all_errors(d),
-        ]))
+        Error(
+          list.concat([
+            all_errors(a),
+            all_errors(b),
+            all_errors(c),
+            all_errors(d),
+          ]),
+        )
     }
   }
 }
@@ -1259,13 +1261,15 @@ pub fn decode5(
     case t1(x), t2(x), t3(x), t4(x), t5(x) {
       Ok(a), Ok(b), Ok(c), Ok(d), Ok(e) -> Ok(constructor(a, b, c, d, e))
       a, b, c, d, e ->
-        Error(list.concat([
-          all_errors(a),
-          all_errors(b),
-          all_errors(c),
-          all_errors(d),
-          all_errors(e),
-        ]))
+        Error(
+          list.concat([
+            all_errors(a),
+            all_errors(b),
+            all_errors(c),
+            all_errors(d),
+            all_errors(e),
+          ]),
+        )
     }
   }
 }
@@ -1319,14 +1323,16 @@ pub fn decode6(
       Ok(a), Ok(b), Ok(c), Ok(d), Ok(e), Ok(f) ->
         Ok(constructor(a, b, c, d, e, f))
       a, b, c, d, e, f ->
-        Error(list.concat([
-          all_errors(a),
-          all_errors(b),
-          all_errors(c),
-          all_errors(d),
-          all_errors(e),
-          all_errors(f),
-        ]))
+        Error(
+          list.concat([
+            all_errors(a),
+            all_errors(b),
+            all_errors(c),
+            all_errors(d),
+            all_errors(e),
+            all_errors(f),
+          ]),
+        )
     }
   }
 }
@@ -1383,15 +1389,17 @@ pub fn decode7(
       Ok(a), Ok(b), Ok(c), Ok(d), Ok(e), Ok(f), Ok(g) ->
         Ok(constructor(a, b, c, d, e, f, g))
       a, b, c, d, e, f, g ->
-        Error(list.concat([
-          all_errors(a),
-          all_errors(b),
-          all_errors(c),
-          all_errors(d),
-          all_errors(e),
-          all_errors(f),
-          all_errors(g),
-        ]))
+        Error(
+          list.concat([
+            all_errors(a),
+            all_errors(b),
+            all_errors(c),
+            all_errors(d),
+            all_errors(e),
+            all_errors(f),
+            all_errors(g),
+          ]),
+        )
     }
   }
 }
@@ -1451,16 +1459,18 @@ pub fn decode8(
       Ok(a), Ok(b), Ok(c), Ok(d), Ok(e), Ok(f), Ok(g), Ok(h) ->
         Ok(constructor(a, b, c, d, e, f, g, h))
       a, b, c, d, e, f, g, h ->
-        Error(list.concat([
-          all_errors(a),
-          all_errors(b),
-          all_errors(c),
-          all_errors(d),
-          all_errors(e),
-          all_errors(f),
-          all_errors(g),
-          all_errors(h),
-        ]))
+        Error(
+          list.concat([
+            all_errors(a),
+            all_errors(b),
+            all_errors(c),
+            all_errors(d),
+            all_errors(e),
+            all_errors(f),
+            all_errors(g),
+            all_errors(h),
+          ]),
+        )
     }
   }
 }
@@ -1523,17 +1533,19 @@ pub fn decode9(
       Ok(a), Ok(b), Ok(c), Ok(d), Ok(e), Ok(f), Ok(g), Ok(h), Ok(i) ->
         Ok(constructor(a, b, c, d, e, f, g, h, i))
       a, b, c, d, e, f, g, h, i ->
-        Error(list.concat([
-          all_errors(a),
-          all_errors(b),
-          all_errors(c),
-          all_errors(d),
-          all_errors(e),
-          all_errors(f),
-          all_errors(g),
-          all_errors(h),
-          all_errors(i),
-        ]))
+        Error(
+          list.concat([
+            all_errors(a),
+            all_errors(b),
+            all_errors(c),
+            all_errors(d),
+            all_errors(e),
+            all_errors(f),
+            all_errors(g),
+            all_errors(h),
+            all_errors(i),
+          ]),
+        )
     }
   }
 }

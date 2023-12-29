@@ -64,8 +64,8 @@ pub fn append_builder(
   do_append(builder, suffix)
 }
 
-@external(erlang, "gleam_stdlib", "iodata_append")
 @external(elixir, "Elixir.GleamStdLib", "iodata_append")
+@external(erlang, "gleam_stdlib", "iodata_append")
 @external(javascript, "../gleam_stdlib.mjs", "add")
 fn do_append(a: StringBuilder, b: StringBuilder) -> StringBuilder
 
@@ -77,8 +77,8 @@ pub fn from_strings(strings: List(String)) -> StringBuilder {
   do_from_strings(strings)
 }
 
-@external(erlang, "gleam_stdlib", "identity")
 @external(elixir, "Elixir.GleamStdLib", "identity")
+@external(erlang, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "concat")
 fn do_from_strings(a: List(String)) -> StringBuilder
 
@@ -90,8 +90,8 @@ pub fn concat(builders: List(StringBuilder)) -> StringBuilder {
   do_concat(builders)
 }
 
-@external(erlang, "gleam_stdlib", "identity")
 @external(elixir, "Elixir.GleamStdLib", "identity")
+@external(erlang, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "concat")
 fn do_concat(a: List(StringBuilder)) -> StringBuilder
 
@@ -103,8 +103,8 @@ pub fn from_string(string: String) -> StringBuilder {
   do_from_string(string)
 }
 
-@external(erlang, "gleam_stdlib", "identity")
 @external(elixir, "Elixir.GleamStdLib", "identity")
+@external(erlang, "gleam_stdlib", "identity")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_from_string(a: String) -> StringBuilder
 
@@ -117,8 +117,8 @@ pub fn to_string(builder: StringBuilder) -> String {
   do_to_string(builder)
 }
 
-@external(erlang, "unicode", "characters_to_binary")
 @external(elixir, "unicode", "characters_to_binary")
+@external(erlang, "unicode", "characters_to_binary")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_to_string(a: StringBuilder) -> String
 
@@ -128,8 +128,8 @@ pub fn byte_size(builder: StringBuilder) -> Int {
   do_byte_size(builder)
 }
 
-@external(erlang, "erlang", "iolist_size")
 @external(elixir, "erlang", "iolist_size")
+@external(erlang, "erlang", "iolist_size")
 @external(javascript, "../gleam_stdlib.mjs", "length")
 fn do_byte_size(a: StringBuilder) -> Int
 
@@ -148,8 +148,8 @@ pub fn lowercase(builder: StringBuilder) -> StringBuilder {
   do_lowercase(builder)
 }
 
-@external(erlang, "string", "lowercase")
 @external(elixir, "string", "lowercase")
+@external(erlang, "string", "lowercase")
 @external(javascript, "../gleam_stdlib.mjs", "lowercase")
 fn do_lowercase(a: StringBuilder) -> StringBuilder
 
@@ -160,8 +160,8 @@ pub fn uppercase(builder: StringBuilder) -> StringBuilder {
   do_uppercase(builder)
 }
 
-@external(erlang, "string", "uppercase")
 @external(elixir, "string", "uppercase")
+@external(erlang, "string", "uppercase")
 @external(javascript, "../gleam_stdlib.mjs", "uppercase")
 fn do_uppercase(a: StringBuilder) -> StringBuilder
 
@@ -305,8 +305,8 @@ pub fn is_equal(a: StringBuilder, b: StringBuilder) -> Bool {
   do_is_equal(a, b)
 }
 
-@external(erlang, "string", "equal")
 @external(elixir, "string", "equal")
+@external(erlang, "string", "equal")
 @external(javascript, "../gleam_stdlib.mjs", "equal")
 fn do_is_equal(a: StringBuilder, b: StringBuilder) -> Bool
 

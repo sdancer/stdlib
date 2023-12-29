@@ -285,8 +285,6 @@ pub fn or_opt(first: Option(a), second: Option(a)) -> Option(a) {
   }
 }
 
-
-
 @target(erlang)
 pub fn or(first: Option(a), second: Option(a)) -> Option(a) {
   case first {
@@ -302,7 +300,6 @@ pub fn or(first: Option(a), second: Option(a)) -> Option(a) {
     None -> second
   }
 }
-
 
 /// Returns the first value if it is `Some`, otherwise evaluates the given function for a fallback value.
 ///

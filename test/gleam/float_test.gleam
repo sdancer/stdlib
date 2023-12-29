@@ -384,10 +384,9 @@ pub fn random_test() {
     let expected_average = float.sum([min, max]) /. 2.0
     list.range(0, iterations)
     |> iterator.from_list()
-    |> iterator.fold(
-      from: 0.0,
-      with: fn(accumulator, _element) { accumulator +. float.random(min, max) },
-    )
+    |> iterator.fold(from: 0.0, with: fn(accumulator, _element) {
+      accumulator +. float.random(min, max)
+    })
     |> fn(sum) { sum /. int.to_float(iterations) }
     |> float.loosely_equals(expected_average, tolerance)
     |> should.be_true

@@ -36,7 +36,6 @@ pub fn be_ok(a: Result(a, b)) -> Nil
 @external(elixir, "gleam_stdlib_test_ffi", "should_be_error")
 pub fn be_error(a: Result(a, b)) -> Nil
 
-
 @target(javascript)
 import gleam/string
 
@@ -53,12 +52,14 @@ pub fn equal(a, b) {
   case a == b {
     True -> Nil
     _ ->
-      crash(string.concat([
-        "\n\t",
-        stringify(a),
-        "\n\tshould equal \n\t",
-        stringify(b),
-      ]))
+      crash(
+        string.concat([
+          "\n\t",
+          stringify(a),
+          "\n\tshould equal \n\t",
+          stringify(b),
+        ]),
+      )
   }
 }
 
@@ -67,12 +68,14 @@ pub fn not_equal(a, b) {
   case a != b {
     True -> Nil
     _ ->
-      crash(string.concat([
-        "\n",
-        stringify(a),
-        "\nshould not equal \n",
-        stringify(b),
-      ]))
+      crash(
+        string.concat([
+          "\n",
+          stringify(a),
+          "\nshould not equal \n",
+          stringify(b),
+        ]),
+      )
   }
 }
 

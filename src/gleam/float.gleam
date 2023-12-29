@@ -33,8 +33,8 @@ pub fn parse(string: String) -> Result(Float, Nil) {
   do_parse(string)
 }
 
-@external(erlang, "gleam_stdlib", "parse_float")
 @external(elixir, "Elixir.GleamStdLib", "parse_float")
+@external(erlang, "gleam_stdlib", "parse_float")
 @external(javascript, "../gleam_stdlib.mjs", "parse_float")
 fn do_parse(a: String) -> Result(Float, Nil)
 
@@ -51,8 +51,8 @@ pub fn to_string(x: Float) -> String {
   do_to_string(x)
 }
 
-@external(erlang, "gleam_stdlib", "float_to_string")
 @external(elixir, "Elixir.GleamStdLib", "float_to_string")
+@external(erlang, "gleam_stdlib", "float_to_string")
 @external(javascript, "../gleam_stdlib.mjs", "float_to_string")
 fn do_to_string(a: Float) -> String
 
@@ -202,8 +202,8 @@ pub fn ceiling(x: Float) -> Float {
   do_ceiling(x)
 }
 
-@external(erlang, "math", "ceil")
 @external(elixir, "math", "ceil")
+@external(erlang, "math", "ceil")
 @external(javascript, "../gleam_stdlib.mjs", "ceiling")
 fn do_ceiling(a: Float) -> Float
 
@@ -220,8 +220,8 @@ pub fn floor(x: Float) -> Float {
   do_floor(x)
 }
 
-@external(erlang, "math", "floor")
 @external(elixir, "math", "floor")
+@external(erlang, "math", "floor")
 @external(javascript, "../gleam_stdlib.mjs", "floor")
 fn do_floor(a: Float) -> Float
 
@@ -276,8 +276,8 @@ pub fn truncate(x: Float) -> Int {
   do_truncate(x)
 }
 
-@external(erlang, "erlang", "trunc")
 @external(elixir, "erlang", "trunc")
+@external(erlang, "erlang", "trunc")
 @external(javascript, "../gleam_stdlib.mjs", "truncate")
 fn do_truncate(a: Float) -> Int
 
@@ -346,8 +346,8 @@ pub fn power(base: Float, of exponent: Float) -> Result(Float, Nil) {
   }
 }
 
-@external(erlang, "math", "pow")
 @external(elixir, "math", "pow")
+@external(erlang, "math", "pow")
 @external(javascript, "../gleam_stdlib.mjs", "power")
 fn do_power(a: Float, b: Float) -> Float
 
@@ -444,8 +444,8 @@ pub fn random(min: Float, max: Float) -> Float {
 /// 0.0 =< X < 1.0 and updates the state in the process dictionary.
 /// See: <https://www.erlang.org/doc/man/rand.html#uniform-0>
 ///
-@external(erlang, "rand", "uniform")
 @external(elixir, "rand", "uniform")
+@external(erlang, "rand", "uniform")
 @external(javascript, "../gleam_stdlib.mjs", "random_uniform")
 fn do_random_uniform() -> Float
 

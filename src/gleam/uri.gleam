@@ -216,8 +216,8 @@ pub fn parse_query(query: String) -> Result(List(#(String, String)), Nil) {
   do_parse_query(query)
 }
 
-@external(erlang, "gleam_stdlib", "parse_query")
 @external(elixir, "Elixir.GleamStdLib", "parse_query")
+@external(erlang, "gleam_stdlib", "parse_query")
 @external(javascript, "../gleam_stdlib.mjs", "parse_query")
 fn do_parse_query(a: String) -> Result(List(#(String, String)), Nil)
 
@@ -261,8 +261,8 @@ pub fn percent_encode(value: String) -> String {
   do_percent_encode(value)
 }
 
-@external(erlang, "gleam_stdlib", "percent_encode")
 @external(elixir, "Elixir.GleamStdLib", "percent_encode")
+@external(erlang, "gleam_stdlib", "percent_encode")
 @external(javascript, "../gleam_stdlib.mjs", "percent_encode")
 fn do_percent_encode(a: String) -> String
 
@@ -279,8 +279,8 @@ pub fn percent_decode(value: String) -> Result(String, Nil) {
   do_percent_decode(value)
 }
 
-@external(erlang, "gleam_stdlib", "percent_decode")
 @external(elixir, "Elixir.GleamStdLib", "percent_decode")
+@external(erlang, "gleam_stdlib", "percent_decode")
 @external(javascript, "../gleam_stdlib.mjs", "percent_decode")
 fn do_percent_decode(a: String) -> Result(String, Nil)
 

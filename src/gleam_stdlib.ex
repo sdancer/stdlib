@@ -135,8 +135,8 @@ defmodule GleamStdLib do
 
   def map_get(map, key) do
     case Map.fetch(map, key) do
-      {:ok, value} -> {:ok, value}
-      :error -> {:error, nil}
+      {:ok, value} -> ok(value)
+      :error -> error(nil)
     end
   end
 
@@ -149,7 +149,7 @@ defmodule GleamStdLib do
   end
 
   def decode_error(expected, got) when is_binary(expected) and is_binary(got) do
-    {:error, [{:decode_error, expected, got, []}]}
+    error([{:decode_error, expected, got, []}])
   end
 
   def classify_dynamic(nil), do: "Nil"
@@ -169,28 +169,28 @@ defmodule GleamStdLib do
   def classify_dynamic(x) when is_function(x), do: "Function"
   def classify_dynamic(_), do: "Some other type"
 
-  def decode_map(data) when is_map(data), do: {:ok, data}
+  def decode_map(data) when is_map(data), do: ok(data)
   def decode_map(data), do: decode_error_msg("Map", data)
 
-  def decode_bit_array(data) when is_bitstring(data), do: {:ok, data}
+  def decode_bit_array(data) when is_bitstring(data), do: ok(data)
   def decode_bit_array(data), do: decode_error_msg("BitArray", data)
 
-  def decode_int(data) when is_integer(data), do: {:ok, data}
+  def decode_int(data) when is_integer(data), do: ok(data)
   def decode_int(data), do: decode_error_msg("Int", data)
 
-  def decode_float(data) when is_float(data), do: {:ok, data}
+  def decode_float(data) when is_float(data), do: ok(data)
   def decode_float(data), do: decode_error_msg("Float", data)
 
-  def decode_bool(data) when is_boolean(data), do: {:ok, data}
+  def decode_bool(data) when is_boolean(data), do: ok(data)
   def decode_bool(data), do: decode_error_msg("Bool", data)
 
-  def decode_list(data) when is_list(data), do: {:ok, data}
+  def decode_list(data) when is_list(data), do: ok(data)
   def decode_list(data), do: decode_error_msg("List", data)
 
   def decode_field(data, key) when is_map(data) do
     case Map.fetch(data, key) do
-      {:ok, value} -> {:ok, {:some, value}}
-      _ -> {:ok, :none}
+      {:ok, value} -> ok({:some, value})
+      _ -> ok(:none)
     end
   end
 
@@ -198,47 +198,47 @@ defmodule GleamStdLib do
 
   def size_of_tuple(data), do: tuple_size(data)
 
-  def tuple_get(_tup, index) when index < 0, do: {:error, nil}
-  def tuple_get(data, index) when index >= tuple_size(data), do: {:error, nil}
-  def tuple_get(data, index), do: {:ok, elem(index + 1, data)}
+  def tuple_get(_tup, index) when index < 0, do: error(nil)
+  def tuple_get(data, index) when index >= tuple_size(data), do: error(nil)
+  def tuple_get(data, index), do: ok(elem(index + 1, data))
 
-  def decode_tuple(data) when is_tuple(data), do: {:ok, data}
+  def decode_tuple(data) when is_tuple(data), do: ok(data)
   def decode_tuple(data), do: decode_error_msg("Tuple", data)
 
-  def decode_tuple2({_, _} = a), do: {:ok, a}
-  def decode_tuple2([a, b]), do: {:ok, {a, b}}
+  def decode_tuple2({_, _} = a), do: ok(a)
+  def decode_tuple2([a, b]), do: ok({a, b})
   def decode_tuple2(data), do: decode_error_msg("Tuple of 2 elements", data)
 
-  def decode_tuple3({_, _, _} = a), do: {:ok, a}
-  def decode_tuple3([a, b, c]), do: {:ok, {a, b, c}}
+  def decode_tuple3({_, _, _} = a), do: ok(a)
+  def decode_tuple3([a, b, c]), do: ok({a, b, c})
   def decode_tuple3(data), do: decode_error_msg("Tuple of 3 elements", data)
 
-  def decode_tuple4({_, _, _, _} = a), do: {:ok, a}
-  def decode_tuple4([a, b, c, d]), do: {:ok, {a, b, c, d}}
+  def decode_tuple4({_, _, _, _} = a), do: ok(a)
+  def decode_tuple4([a, b, c, d]), do: ok({a, b, c, d})
   def decode_tuple4(data), do: decode_error_msg("Tuple of 4 elements", data)
 
-  def decode_tuple5({_, _, _, _, _} = a), do: {:ok, a}
-  def decode_tuple5([a, b, c, d, e]), do: {:ok, {a, b, c, d, e}}
+  def decode_tuple5({_, _, _, _, _} = a), do: ok(a)
+  def decode_tuple5([a, b, c, d, e]), do: ok({a, b, c, d, e})
   def decode_tuple5(data), do: decode_error_msg("Tuple of 5 elements", data)
 
-  def decode_tuple6({_, _, _, _, _, _} = a), do: {:ok, a}
-  def decode_tuple6([a, b, c, d, e, f]), do: {:ok, {a, b, c, d, e, f}}
+  def decode_tuple6({_, _, _, _, _, _} = a), do: ok(a)
+  def decode_tuple6([a, b, c, d, e, f]), do: ok({a, b, c, d, e, f})
   def decode_tuple6(data), do: decode_error_msg("Tuple of 6 elements", data)
 
   def decode_option(term, f) do
     decode = fn inner ->
       case f.(inner) do
-        {:ok, decoded} -> {:ok, {:some, decoded}}
-        error -> error
+        {:ok, decoded} -> ok({:some, decoded})
+        error -> error(error)
       end
     end
 
     case term do
-      :undefined -> {:ok, :none}
-      :error -> {:ok, :none}
-      :null -> {:ok, :none}
-      :none -> {:ok, :none}
-      nil -> {:ok, :none}
+      :undefined -> ok(:none)
+      :error -> ok(:none)
+      :null -> ok(:none)
+      :none -> ok(:none)
+      nil -> ok(:none)
       {:some, inner} -> decode.(inner)
       _ -> decode.(term)
     end
@@ -246,10 +246,10 @@ defmodule GleamStdLib do
 
   def decode_result(term) do
     case term do
-      {:ok, inner} -> {:ok, {:ok, inner}}
-      :ok -> {:ok, {:ok, nil}}
-      {:error, inner} -> {:ok, {:error, inner}}
-      :error -> {:ok, {:error, nil}}
+      {:ok, inner} -> ok(ok(inner))
+      :ok -> ok(ok(nil))
+      {:error, inner} -> ok(error(inner))
+      :error -> ok(error(nil))
       _ -> decode_error_msg("Result", term)
     end
   end
@@ -257,27 +257,27 @@ defmodule GleamStdLib do
   def int_from_base_string(string, base) do
     case Integer.parse(string, base) do
       {int, _} when is_integer(int) ->
-        {:ok, int}
+        ok(int)
 
       _ ->
-        {:error, nil}
+        error(nil)
     end
   end
 
   def parse_int(string) do
     case Integer.parse(string) do
       {int, _} when is_integer(int) ->
-        {:ok, int}
+        ok(int)
 
       _ ->
-        {:error, nil}
+        error(nil)
     end
   end
 
   def parse_float(string) do
     case String.to_float(string) do
-      {float, _} when is_float(float) -> {:ok, float}
-      _ -> {:error, nil}
+      {float, _} when is_float(float) -> ok(float)
+      _ -> error(nil)
     end
   end
 
@@ -311,7 +311,7 @@ defmodule GleamStdLib do
 
     case :unicode.characters_to_binary(chars) do
       bin when is_binary(bin) -> bin
-      _ -> {:error, {:gleam_error, {:string_invalid_utf8, :error}}}
+      _ -> error({:gleam_error, {:string_invalid_utf8, :error}})
     end
   end
 
@@ -326,17 +326,17 @@ defmodule GleamStdLib do
 
   def bit_array_slice(bin, pos, len) do
     try do
-      {:ok, :binary.part(bin, pos, len)}
+      ok(:binary.part(bin, pos, len))
     rescue
-      ArgumentError -> {:error, nil}
+      ArgumentError -> error(nil)
     end
   end
 
-  def bit_array_int_to_u32(i) when 0 <= i and i < 4_294_967_296, do: {:ok, <<i::32>>}
-  def bit_array_int_to_u32(_), do: {:error, nil}
+  def bit_array_int_to_u32(i) when 0 <= i and i < 4_294_967_296, do: ok(<<i::32>>)
+  def bit_array_int_to_u32(_), do: error(nil)
 
-  def bit_array_int_from_u32(<<i::32>>), do: {:ok, i}
-  def bit_array_int_from_u32(_), do: {:error, nil}
+  def bit_array_int_from_u32(<<i::32>>), do: ok(i)
+  def bit_array_int_from_u32(_), do: error(nil)
 
   def compile_regex(string, options) do
     {:options, caseless, multiline} = options
@@ -344,8 +344,8 @@ defmodule GleamStdLib do
     filtered_options = Enum.filter(options_list, &(&1 != false))
 
     case :re.compile(string, filtered_options) do
-      {:ok, mp} -> {:ok, mp}
-      {:error, {str, pos}} -> {:error, {:compile_error, str, pos}}
+      {:ok, mp} -> ok(mp)
+      {:error, {str, pos}} -> error({:compile_error, str, pos})
     end
   end
 
@@ -455,6 +455,110 @@ defmodule GleamStdLib do
       {:ok, :binary.decode_hex(string)}
     rescue
       _ -> {:error, nil}
+    end
+  end
+
+  def regex_submatches(string, {start, length}) do
+    binary_slice = :binary.part(string, {start, length})
+
+    case binary_slice == "" do
+      true -> :none
+      false -> {:some, binary_slice}
+    end
+  end
+
+  def regex_matches(string, [{start, length} | submatches]) do
+    submatches1 = Enum.map(submatches, fn x -> regex_submatches(string, x) end)
+    {:match, :binary.part(string, start, length), submatches1}
+  end
+
+  def regex_scan(regex, string) do
+    case :re.run(string, regex, [:global]) do
+      {:match, captured} ->
+        Enum.map(captured, fn x -> regex_matches(string, x) end)
+
+      :nomatch ->
+        []
+    end
+  end
+
+  def base_decode64(s) do
+    try do
+      ok(:base64.decode(s))
+    rescue
+      _ -> error(nil)
+    end
+  end
+
+  def wrap_list(x) when is_list(x), do: x
+  def wrap_list(x), do: [x]
+
+  def check_utf8(cs) do
+    case :unicode.characters_to_list(cs) do
+      {:incomplete, _, _} -> error(nil)
+      {:error, _, _} -> error(nil)
+      _ -> ok(cs)
+    end
+  end
+
+  def uri_parse(string) do
+    case :uri_string.parse(string) do
+      {:error, _, _} ->
+        error(nil)
+
+      uri ->
+        ok(
+          {:uri, maps_get_optional(uri, :scheme), maps_get_optional(uri, :userinfo),
+           maps_get_optional(uri, :host), maps_get_optional(uri, :port),
+           maps_get_or(uri, :path, <<>>), maps_get_optional(uri, :query),
+           maps_get_optional(uri, :fragment)}
+        )
+    end
+  end
+
+  def maps_get_optional(map, key) do
+    try do
+      ok(Map.get(map, key))
+    rescue
+      _ -> :none
+    end
+  end
+
+  def maps_get_or(map, key, default) do
+    try do
+      Map.get(map, key)
+    rescue
+      _ -> default
+    end
+  end
+
+  def float_to_string(float) when is_float(float) do
+    :erlang.iolist_to_binary(:io_lib_format.fwrite_g(float))
+  end
+
+  def utf_codepoint_list_to_string(list) do
+    case :unicode.characters_to_binary(list) do
+      {:error, _} -> error({:gleam_error, {:string_invalid_utf8, list}})
+      binary -> binary
+    end
+  end
+
+  def crop_string(string, prefix) do
+    case :string.find(string, prefix) do
+      :nomatch -> string
+      new -> new
+    end
+  end
+
+  def contains_string(string, substring) do
+    is_binary(:string.find(string, substring))
+  end
+
+  def base16_decode(string) do
+    try do
+      ok(:binary.decode_hex(string))
+    rescue
+      _ -> error(nil)
     end
   end
 end

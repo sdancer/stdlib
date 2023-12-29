@@ -97,8 +97,8 @@ pub fn has_key(dict: Dict(k, v), key: k) -> Bool {
   do_has_key(key, dict)
 }
 
-@external(erlang, "maps", "is_key")
 @external(elixir, "maps", "is_key")
+@external(erlang, "maps", "is_key")
 fn do_has_key(key: k, dict: Dict(k, v)) -> Bool {
   get(dict, key) != Error(Nil)
 }
@@ -109,8 +109,8 @@ pub fn new() -> Dict(key, value) {
   do_new()
 }
 
-@external(erlang, "maps", "new")
 @external(elixir, "maps", "new")
+@external(erlang, "maps", "new")
 @external(javascript, "../gleam_stdlib.mjs", "new_map")
 fn do_new() -> Dict(key, value)
 
@@ -135,8 +135,8 @@ pub fn get(from: Dict(key, value), get: key) -> Result(value, Nil) {
   do_get(from, get)
 }
 
-@external(erlang, "gleam_stdlib", "map_get")
 @external(elixir, "Elixir.GleamStdLib", "map_get")
+@external(erlang, "gleam_stdlib", "map_get")
 @external(javascript, "../gleam_stdlib.mjs", "map_get")
 fn do_get(a: Dict(key, value), b: key) -> Result(value, Nil)
 
@@ -161,8 +161,8 @@ pub fn insert(into dict: Dict(k, v), for key: k, insert value: v) -> Dict(k, v) 
   do_insert(key, value, dict)
 }
 
-@external(erlang, "maps", "put")
 @external(elixir, "maps", "put")
+@external(erlang, "maps", "put")
 @external(javascript, "../gleam_stdlib.mjs", "map_insert")
 fn do_insert(a: key, b: value, c: Dict(key, value)) -> Dict(key, value)
 
@@ -182,8 +182,8 @@ pub fn map_values(in dict: Dict(k, v), with fun: fn(k, v) -> w) -> Dict(k, w) {
   do_map_values(fun, dict)
 }
 
-@external(erlang, "maps", "map")
 @external(elixir, "maps", "map")
+@external(erlang, "maps", "map")
 fn do_map_values(f: fn(key, value) -> b, dict: Dict(key, value)) -> Dict(key, b) {
   let f = fn(dict, k, v) { insert(dict, k, f(k, v)) }
   dict
@@ -207,8 +207,8 @@ pub fn keys(dict: Dict(keys, v)) -> List(keys) {
   do_keys(dict)
 }
 
-@external(erlang, "maps", "keys")
 @external(elixir, "maps", "keys")
+@external(erlang, "maps", "keys")
 fn do_keys(dict: Dict(k, v)) -> List(k) {
   let list_of_pairs = to_list(dict)
   do_keys_acc(list_of_pairs, [])
@@ -245,8 +245,8 @@ pub fn values(dict: Dict(k, values)) -> List(values) {
   do_values(dict)
 }
 
-@external(erlang, "maps", "values")
 @external(elixir, "maps", "values")
+@external(erlang, "maps", "values")
 fn do_values(dict: Dict(k, v)) -> List(v) {
   let list_of_pairs = to_list(dict)
   do_values_acc(list_of_pairs, [])
@@ -283,8 +283,8 @@ pub fn filter(
   do_filter(predicate, dict)
 }
 
-@external(erlang, "maps", "filter")
 @external(elixir, "maps", "filter")
+@external(erlang, "maps", "filter")
 fn do_filter(
   f: fn(key, value) -> Bool,
   dict: Dict(key, value),
@@ -320,8 +320,8 @@ pub fn take(from dict: Dict(k, v), keeping desired_keys: List(k)) -> Dict(k, v) 
   do_take(desired_keys, dict)
 }
 
-@external(erlang, "maps", "with")
 @external(elixir, "maps", "with")
+@external(erlang, "maps", "with")
 fn do_take(desired_keys: List(k), dict: Dict(k, v)) -> Dict(k, v) {
   insert_taken(dict, desired_keys, new())
 }
@@ -361,8 +361,8 @@ pub fn merge(into dict: Dict(k, v), from new_entries: Dict(k, v)) -> Dict(k, v) 
   do_merge(dict, new_entries)
 }
 
-@external(erlang, "maps", "merge")
 @external(elixir, "maps", "merge")
+@external(erlang, "maps", "merge")
 fn do_merge(dict: Dict(k, v), new_entries: Dict(k, v)) -> Dict(k, v) {
   new_entries
   |> to_list
@@ -399,8 +399,8 @@ pub fn delete(from dict: Dict(k, v), delete key: k) -> Dict(k, v) {
   do_delete(key, dict)
 }
 
-@external(erlang, "maps", "remove")
 @external(elixir, "maps", "remove")
+@external(erlang, "maps", "remove")
 @external(javascript, "../gleam_stdlib.mjs", "map_remove")
 fn do_delete(a: k, b: Dict(k, v)) -> Dict(k, v)
 

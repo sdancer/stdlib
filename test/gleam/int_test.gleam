@@ -417,13 +417,13 @@ pub fn random_test() {
     let expected_average = int.sum([min, max]) / 2
     list.range(0, iterations)
     |> iterator.from_list
-    |> iterator.fold(
-      from: 0,
-      with: fn(accumulator, _element) { accumulator + int.random(min, max) },
-    )
+    |> iterator.fold(from: 0, with: fn(accumulator, _element) {
+      accumulator + int.random(min, max)
+    })
     |> fn(sum) { sum / iterations }
     |> fn(average) {
-      average - tolerance <= expected_average || average + tolerance >= expected_average
+      average - tolerance <= expected_average
+      || average + tolerance >= expected_average
     }
     |> should.be_true
   }

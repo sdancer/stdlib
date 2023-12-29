@@ -108,8 +108,8 @@ pub fn parse(string: String) -> Result(Int, Nil) {
   do_parse(string)
 }
 
-@external(erlang, "gleam_stdlib", "parse_int")
 @external(elixir, "Elixir.GleamStdLib", "parse_int")
+@external(erlang, "gleam_stdlib", "parse_int")
 @external(javascript, "../gleam_stdlib.mjs", "parse_int")
 fn do_parse(a: String) -> Result(Int, Nil)
 
@@ -142,8 +142,8 @@ pub fn base_parse(string: String, base: Int) -> Result(Int, Nil) {
   }
 }
 
-@external(erlang, "gleam_stdlib", "int_from_base_string")
 @external(elixir, "Elixir.GleamStdLib", "int_from_base_string")
+@external(erlang, "gleam_stdlib", "int_from_base_string")
 @external(javascript, "../gleam_stdlib.mjs", "int_from_base_string")
 fn do_base_parse(a: String, b: Int) -> Result(Int, Nil)
 
@@ -160,8 +160,8 @@ pub fn to_string(x: Int) {
   do_to_string(x)
 }
 
-@external(erlang, "erlang", "integer_to_binary")
 @external(elixir, "erlang", "integer_to_binary")
+@external(erlang, "erlang", "integer_to_binary")
 @external(javascript, "../gleam_stdlib.mjs", "to_string")
 fn do_to_string(a: Int) -> String
 
@@ -209,8 +209,8 @@ pub fn to_base_string(x: Int, base: Int) -> Result(String, InvalidBase) {
   }
 }
 
-@external(erlang, "erlang", "integer_to_binary")
 @external(elixir, "erlang", "integer_to_binary")
+@external(erlang, "erlang", "integer_to_binary")
 @external(javascript, "../gleam_stdlib.mjs", "int_to_base_string")
 fn do_to_base_string(a: Int, b: Int) -> String
 
@@ -289,8 +289,8 @@ pub fn to_float(x: Int) -> Float {
   do_to_float(x)
 }
 
-@external(erlang, "erlang", "float")
 @external(elixir, "erlang", "float")
+@external(erlang, "erlang", "float")
 @external(javascript, "../gleam_stdlib.mjs", "identity")
 fn do_to_float(a: Int) -> Float
 
@@ -824,8 +824,8 @@ pub fn subtract(a: Int, b: Int) -> Int {
 /// On Erlang it is equivalent to bitwise operations on ints, on JavaScript it
 /// is equivalent to bitwise operations on big-ints.
 ///
-@external(erlang, "erlang", "band")
 @external(elixir, "erlang", "band")
+@external(erlang, "erlang", "band")
 @external(javascript, "../gleam_stdlib.mjs", "bitwise_and")
 pub fn bitwise_and(x: Int, y: Int) -> Int
 
@@ -835,8 +835,8 @@ pub fn bitwise_and(x: Int, y: Int) -> Int
 /// On Erlang it is equivalent to bitwise operations on ints, on JavaScript it
 /// is equivalent to bitwise operations on big-ints.
 ///
-@external(erlang, "erlang", "bnot")
 @external(elixir, "erlang", "bnot")
+@external(erlang, "erlang", "bnot")
 @external(javascript, "../gleam_stdlib.mjs", "bitwise_not")
 pub fn bitwise_not(x: Int) -> Int
 
@@ -846,8 +846,8 @@ pub fn bitwise_not(x: Int) -> Int
 /// On Erlang it is equivalent to bitwise operations on ints, on JavaScript it
 /// is equivalent to bitwise operations on big-ints.
 ///
-@external(erlang, "erlang", "bor")
 @external(elixir, "erlang", "bor")
+@external(erlang, "erlang", "bor")
 @external(javascript, "../gleam_stdlib.mjs", "bitwise_or")
 pub fn bitwise_or(x: Int, y: Int) -> Int
 
@@ -857,8 +857,8 @@ pub fn bitwise_or(x: Int, y: Int) -> Int
 /// On Erlang it is equivalent to bitwise operations on ints, on JavaScript it
 /// is equivalent to bitwise operations on big-ints.
 ///
-@external(erlang, "erlang", "bxor")
 @external(elixir, "erlang", "bxor")
+@external(erlang, "erlang", "bxor")
 @external(javascript, "../gleam_stdlib.mjs", "bitwise_exclusive_or")
 pub fn bitwise_exclusive_or(x: Int, y: Int) -> Int
 
@@ -868,8 +868,8 @@ pub fn bitwise_exclusive_or(x: Int, y: Int) -> Int
 /// On Erlang it is equivalent to bitwise operations on ints, on JavaScript it
 /// is equivalent to bitwise operations on big-ints.
 ///
-@external(erlang, "erlang", "bsl")
 @external(elixir, "erlang", "bsl")
+@external(erlang, "erlang", "bsl")
 @external(javascript, "../gleam_stdlib.mjs", "bitwise_shift_left")
 pub fn bitwise_shift_left(x: Int, y: Int) -> Int
 
@@ -879,7 +879,7 @@ pub fn bitwise_shift_left(x: Int, y: Int) -> Int
 /// On Erlang it is equivalent to bitwise operations on ints, on JavaScript it
 /// is equivalent to bitwise operations on big-ints.
 ///
-@external(erlang, "erlang", "bsr")
 @external(elixir, "erlang", "bsr")
+@external(erlang, "erlang", "bsr")
 @external(javascript, "../gleam_stdlib.mjs", "bitwise_shift_right")
 pub fn bitwise_shift_right(x: Int, y: Int) -> Int
