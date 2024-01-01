@@ -1,6 +1,33 @@
 defmodule GleamStdLib do
   import Kernel, except: [{:inspect, 1}]
 
+  def inspect(%{__type__: t, __module__: m} = rec) do
+    <<"Elixir.", t::binary>> = :erlang.atom_to_binary(t)
+    fields = Map.to_list(Map.drop(rec, [:__module__, :__type__]))
+
+    fields =
+      case fields do
+        [{:field_0, n}] ->
+          inspect(n)
+
+        _ ->
+          fields =
+            Enum.map(
+              fields,
+              fn {k, v} ->
+                "#{k}: #{inspect(v)}"
+              end
+            )
+            |> Enum.join(", ")
+      end
+
+    "#{t}(#{fields})"
+  end
+
+  def inspect(a) when is_atom(a) do
+    "#{a}"
+  end
+
   def inspect(a) do
     Kernel.inspect(a)
   end
@@ -44,6 +71,10 @@ defmodule GleamStdLib do
 
   def println_error(string) do
     :io.put_chars(:standard_error, [string, ?\n])
+  end
+
+  def some(n) do
+    %{__module__: :prelude, __type__: Some, field_0: n}
   end
 
   def ok(n) do
@@ -149,7 +180,9 @@ defmodule GleamStdLib do
   end
 
   def decode_error(expected, got) when is_binary(expected) and is_binary(got) do
-    error([{:decode_error, expected, got, []}])
+    error([
+      %{__module__: GleamStdLib, __type__: DecodeError, expected: expected, got: got, path: []}
+    ])
   end
 
   def classify_dynamic(nil), do: "Nil"
@@ -189,8 +222,8 @@ defmodule GleamStdLib do
 
   def decode_field(data, key) when is_map(data) do
     case Map.fetch(data, key) do
-      {:ok, value} -> ok({:some, value})
-      _ -> ok(:none)
+      {:ok, value} -> ok(some(value))
+      _ -> ok(None)
     end
   end
 
@@ -228,7 +261,7 @@ defmodule GleamStdLib do
   def decode_option(term, f) do
     decode = fn inner ->
       case f.(inner) do
-        {:ok, decoded} -> ok({:some, decoded})
+        {:ok, decoded} -> ok(some(decoded))
         error -> error(error)
       end
     end
@@ -239,7 +272,7 @@ defmodule GleamStdLib do
       :null -> ok(:none)
       :none -> ok(:none)
       nil -> ok(:none)
-      {:some, inner} -> decode.(inner)
+      %{__type__: Some, field_0: inner} -> decode.(inner)
       _ -> decode.(term)
     end
   end
@@ -359,8 +392,8 @@ defmodule GleamStdLib do
     binary_slice = :binary.part(string, {start, length})
 
     case binary_slice == "" do
-      true -> :none
-      false -> {:some, binary_slice}
+      true -> None
+      false -> some(binary_slice)
     end
   end
 
@@ -414,9 +447,9 @@ defmodule GleamStdLib do
 
   def maps_get_optional(map, key) do
     try do
-      {:some, Map.get(map, key)}
+      some(Map.get(map, key))
     rescue
-      _ -> :none
+      _ -> None
     end
   end
 
@@ -462,8 +495,8 @@ defmodule GleamStdLib do
     binary_slice = :binary.part(string, {start, length})
 
     case binary_slice == "" do
-      true -> :none
-      false -> {:some, binary_slice}
+      true -> None
+      false -> some(binary_slice)
     end
   end
 
