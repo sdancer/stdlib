@@ -1,35 +1,58 @@
 defmodule GleamStdLib do
-  import Kernel, except: [{:inspect, 1}]
+  import Kernel, except: [{:inspect, 1}, {:inspect, 2}]
 
-  def inspect(%{__type__: t, __module__: m} = rec) do
+  def inspect(a, pretty \\ true)
+
+  def inspect(%{__type__: t, __module__: m} = rec, pretty) do
     <<"Elixir.", t::binary>> = :erlang.atom_to_binary(t)
     fields = Map.to_list(Map.drop(rec, [:__module__, :__type__]))
 
     fields =
       case fields do
         [{:field_0, n}] ->
-          inspect(n)
+          inspect(n, pretty)
 
         _ ->
           fields =
             Enum.map(
               fields,
               fn {k, v} ->
-                "#{k}: #{inspect(v)}"
+                "#{k}: #{inspect(v, pretty)}"
               end
             )
             |> Enum.join(", ")
       end
 
-    "#{t}(#{fields})"
+    color_pre = if pretty do IO.ANSI.cyan end
+    color_post = if pretty do IO.ANSI.reset end
+
+    "#{color_pre}#{t}#{color_post}(#{fields})"
   end
 
-  def inspect(a) when is_atom(a) do
-    "#{a}"
+  def inspect(a, pretty) when is_atom(a) do
+    color_pre = if pretty do IO.ANSI.cyan end
+    color_post = if pretty do IO.ANSI.reset end
+
+    "#{color_pre}#{a}#{color_post}"
   end
 
-  def inspect(a) do
-    Kernel.inspect(a)
+  def inspect(a, pretty) when is_integer(a) or is_float(a) do
+    color_pre = if pretty do IO.ANSI.yellow end
+    color_post = if pretty do IO.ANSI.reset end
+
+    "#{color_pre}#{a}#{color_post}"
+  end
+
+  def inspect(a, pretty) when is_list(a) do
+    items =
+      Enum.map(a, &inspect(&1, pretty))
+      |> Enum.join(", ")
+
+    "[#{items}]"
+  end
+
+  def inspect(a, pretty) do
+    Kernel.inspect(a, pretty: pretty)
   end
 
   def dec2hex(x) do
